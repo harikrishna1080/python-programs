@@ -1,0 +1,28 @@
+class Solution(object):
+    def multiply(self, num1, num2):
+        # Edge case
+        if num1 == "0" or num2 == "0":
+            return "0"
+        
+        n, m = len(num1), len(num2)
+        result = [0] * (n + m)
+        
+        # Reverse traversal
+        for i in range(n - 1, -1, -1):
+            for j in range(m - 1, -1, -1):
+                mul = int(num1[i]) * int(num2[j])
+                
+                # Positions in result array
+                p1 = i + j
+                p2 = i + j + 1
+                
+                # Add current multiplication
+                summ = mul + result[p2]
+                
+                result[p2] = summ % 10
+                result[p1] += summ // 10
+        
+        # Convert to string (skip leading zeros)
+        result_str = ''.join(map(str, result)).lstrip('0')
+        
+        return result_str
